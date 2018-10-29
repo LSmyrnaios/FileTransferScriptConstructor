@@ -5,6 +5,7 @@ from stat import S_IEXEC
 
 scriptFileFullPath = ""
 hostsFileFullPath = ""
+remoteUserName = ""
 fromLocalToRemote = False
 fromRemoteToLocal = False
 localDir = ""
@@ -15,7 +16,7 @@ isFileWithNum = False
 
 def parseArgs(mainArgs):
 
-    if len(mainArgs) > 15:  #It gets to 15 as there is also the program's name
+    if len(mainArgs) > 17:  #It gets to 17 as there is also the program's name
         raise Exception("\"makeTransferScript\" expected only up to 14 arguments, while you gave: " + len(mainArgs).__str__() + "!")
 
     i = 1
@@ -33,6 +34,11 @@ def parseArgs(mainArgs):
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
             global hostsFileFullPath
             hostsFileFullPath = mainArgs[i]
+        elif mainArgs[i] == "-remoteUserName":
+            i += 1
+            # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
+            global remoteUserName
+            remoteUserName = mainArgs[i]
         elif mainArgs[i] == "--wayOfTransfer":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
@@ -89,13 +95,12 @@ fileToTransfer = ""
 preNumStatement = ""
 afterNumStatement = ""
 statementAfterHost = ""
-command = 'scp'
-user = ' root@'
-
+command = "scp"     # const
+statementBeforeHost = ""
 
 def constructBasicCommandComponents():
 
-    global preNumStatement, afterNumStatement, statementAfterHost, localDir
+    global preNumStatement, afterNumStatement, statementBeforeHost, statementAfterHost, localDir
 
     # split "generalFileName" in pre-extension and after-extension which parts will be used later if we have files with numbers.
     generalFileNameInPieces = generalFileName.split(".")
@@ -112,6 +117,7 @@ def constructBasicCommandComponents():
             os.makedirs(localDir)
 
     localDir = " " + localDir
+    statementBeforeHost = " " + remoteUserName + "@"
     statementAfterHost = ":" + remoteDir
 
 
@@ -137,9 +143,9 @@ def finalCmdConstructAndWriteToTransferScript():
             remoteFullPath = os.path.join(statementAfterHost, fileToTransfer)
 
         if fromLocalToRemote:
-            transferCmd = command + localFullPath + user + hosts[i] + statementAfterHost
+            transferCmd = command + localFullPath + statementBeforeHost + hosts[i] + statementAfterHost
         else:
-            transferCmd = command + user + hosts[i] + remoteFullPath + localDir
+            transferCmd = command + statementBeforeHost + hosts[i] + remoteFullPath + localDir
 
         print(transferCmd)
 
@@ -161,6 +167,7 @@ def constructTransferScript():
     finalCmdConstructAndWriteToTransferScript()
 
     print "\nConstruction finished."
+    print "Run transfer-script: \"" + scriptFileFullPath + "\""
 
     # Give the necessary permissions to the transferScript.
     os.chmod(scriptFileFullPath, S_IEXEC | os.stat(scriptFileFullPath).st_mode)
