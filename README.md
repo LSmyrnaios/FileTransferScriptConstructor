@@ -10,10 +10,9 @@ Run command:<br/>
 Examples
 --------
 You can check the functionality of **TransferScriptConstructor** by running these examples:<br/>
-Below, where "*hosts.txt*" is a file containing the IPs of the remote-machines, separated by a "new-line-character".<br/>
 
 - Transfer from local to remote:
-``python TransferScriptConstructor.py -scriptFileFullPath /home/user/scripts/localToRemoteTransferScript.sh -hostsFileFullPath hosts.txt -remoteUserName root --wayOfTransfer -fromLocalToRemote -localDir home/user/filesToTransfer -remoteDir /home/user/ -generalFileName fileToTransfer.txt --isFileWithNum -False``<br/>
+``python TransferScriptConstructor.py -scriptFileFullPath /home/user/scripts/localToRemoteTransferScript.sh -hostsFileFullPath exampleHosts.txt -remoteUserName root --wayOfTransfer -fromLocalToRemote -localDir home/user/filesToTransfer -remoteDir /home/user/ -generalFileName fileToTransfer.txt --isFileWithNum -False``<br/>
 The output will be the script: "/home/user/scripts/localToRemoteTransferScript.sh", which will contain the following lines:<br/>
 ``scp /home/user/transferFiles/fileToTransfer.txt root@<IP-1>:/home/user/``<br/>
 ``scp /home/user/transferFiles/fileToTransfer.txt root@<IP-2>:/home/user/``<br/>
@@ -21,7 +20,7 @@ The output will be the script: "/home/user/scripts/localToRemoteTransferScript.s
 <br/>
 
 - Transfer from remote to local:
-``python TransferScriptConstructor.py -scriptFileFullPath /home/user/scripts/remoteToLocalTransferScript.sh -hostsFileFullPath hosts.txt -remoteUserName root --wayOfTransfer -fromRemoteToLocal -localDir home/user/filesToTransfer -remoteDir /home/user/ -generalFileName fileToTransfer.txt --isFileWithNum -False``<br/>
+``python TransferScriptConstructor.py -scriptFileFullPath /home/user/scripts/remoteToLocalTransferScript.sh -hostsFileFullPath exampleHosts.txt -remoteUserName root --wayOfTransfer -fromRemoteToLocal -localDir home/user/filesToTransfer -remoteDir /home/user/ -generalFileName fileToTransfer.txt --isFileWithNum -False``<br/>
 The output will be the script: "/home/user/scripts/remoteToLocalTransferScript.sh", which will contain the following lines:<br/>
 ``scp root@<IP-1>:/home/user/ /home/user/transferFiles/fileToTransfer.txt``<br/>
 ``scp root@<IP-2>:/home/user/ /home/user/transferFiles/fileToTransfer.txt``<br/>

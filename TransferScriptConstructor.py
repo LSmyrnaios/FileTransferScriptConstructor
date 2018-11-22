@@ -17,7 +17,7 @@ isFileWithNum = False
 def parseArgs(mainArgs):
 
     if len(mainArgs) > 17:  #It gets to 17 as there is also the program's name
-        raise Exception("\"makeTransferScript\" expected only up to 14 arguments, while you gave: " + len(mainArgs).__str__() + "!")
+        raise Exception("\"makeTransferScript\" expected only up to 16 arguments, while you gave: " + len(mainArgs).__str__() + "!")
 
     i = 1
     while i < len(mainArgs):
