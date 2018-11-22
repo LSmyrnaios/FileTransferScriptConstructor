@@ -16,8 +16,8 @@ isFileWithNum = False
 
 def parseArgs(mainArgs):
 
-    if len(mainArgs) > 17:  #It gets to 17 as there is also the program's name
-        raise Exception("\"makeTransferScript\" expected only up to 16 arguments, while you gave: " + len(mainArgs).__str__() + "!")
+    if len(mainArgs) > 17:  # It gets to 17 as there is also the program's name which counts like an argument in Python.
+        raise Exception("\"FileTransferScriptConstructor\" expected only up to 16 arguments, while you gave: " + len(mainArgs).__str__() + "!")
 
     i = 1
     while i < len(mainArgs):
@@ -121,7 +121,7 @@ def constructBasicCommandComponents():
     statementAfterHost = ":" + remoteDir
 
 
-def finalCmdConstructAndWriteToTransferScript():
+def finalCmdConstructAndWriteToFileTransferScript():
 
     global fileToTransfer
 
@@ -154,7 +154,7 @@ def finalCmdConstructAndWriteToTransferScript():
     f.close()
 
 
-def constructTransferScript():
+def constructFileTransferScript():
 
     parseArgs(sys.argv)
 
@@ -164,14 +164,14 @@ def constructTransferScript():
 
     print "\nConstructing transfer-script: \"" + scriptFileFullPath + "\"..\n"
 
-    finalCmdConstructAndWriteToTransferScript()
+    finalCmdConstructAndWriteToFileTransferScript()
 
     print "\nConstruction finished."
     print "Run transfer-script: \"" + scriptFileFullPath + "\""
 
-    # Give the necessary permissions to the transferScript.
+    # Give the necessary permissions to the fileTransferScript.
     os.chmod(scriptFileFullPath, S_IEXEC | os.stat(scriptFileFullPath).st_mode)
 
 
 if __name__ == '__main__':
-    constructTransferScript()
+    constructFileTransferScript()
