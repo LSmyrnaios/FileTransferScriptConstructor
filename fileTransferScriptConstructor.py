@@ -19,7 +19,7 @@ def parseArgs(mainArgs):
     if len(mainArgs) > 17:  # It gets to 17 as there is also the program's name which counts like an argument in Python.
         raise Exception("\"FileTransferScriptConstructor\" expected only up to 16 arguments, while you gave: " + len(mainArgs).__str__() + "!")
 
-    global scriptFileFullPath, hostsFileFullPath, remoteUserName, fromLocalToRemote, localDir, remoteDir, generalFileName, isFileWithNum
+    global scriptFileFullPath, hostsFileFullPath, remoteUserName, fromLocalToRemote, fromRemoteToLocal, localDir, remoteDir, generalFileName, isFileWithNum
 
     i = 1
     while i < len(mainArgs):
