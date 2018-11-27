@@ -162,12 +162,12 @@ def constructFileTransferScript():
 
     constructBasicCommandComponents()
 
-    print "\nConstructing transfer-script: \"" + scriptFileFullPath + "\"..\n"
+    print "\nConstructing file-transfer-script: \"" + scriptFileFullPath + "\"..\n"
 
     finalCmdConstructAndWriteToFileTransferScript()
 
     print "\nConstruction finished."
-    print "Run transfer-script: \"" + scriptFileFullPath + "\""
+    print "Run file-transfer-script: \"" + scriptFileFullPath + "\""
 
     # Give the necessary permissions to the fileTransferScript.
     os.chmod(scriptFileFullPath, S_IEXEC | os.stat(scriptFileFullPath).st_mode)
