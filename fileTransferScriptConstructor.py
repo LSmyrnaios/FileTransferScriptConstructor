@@ -19,30 +19,26 @@ def parseArgs(mainArgs):
     if len(mainArgs) > 17:  # It gets to 17 as there is also the program's name which counts like an argument in Python.
         raise Exception("\"FileTransferScriptConstructor\" expected only up to 16 arguments, while you gave: " + len(mainArgs).__str__() + "!")
 
+    global scriptFileFullPath, hostsFileFullPath, remoteUserName, fromLocalToRemote, localDir, remoteDir, generalFileName, isFileWithNum
+
     i = 1
     while i < len(mainArgs):
-
         # print i.__str__() + ". outer-arg: " + mainArgs[i]  # DEBUG!
-
         if mainArgs[i] == "-scriptFileFullPath":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global scriptFileFullPath
             scriptFileFullPath = mainArgs[i]
         elif mainArgs[i] == "-hostsFileFullPath":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global hostsFileFullPath
             hostsFileFullPath = mainArgs[i]
         elif mainArgs[i] == "-remoteUserName":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global remoteUserName
             remoteUserName = mainArgs[i]
         elif mainArgs[i] == "--wayOfTransfer":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global fromLocalToRemote
             if mainArgs[i] == "-fromLocalToRemote":
                 fromLocalToRemote = True
             elif mainArgs[i] == "-fromRemoteToLocal":
@@ -52,22 +48,18 @@ def parseArgs(mainArgs):
         elif mainArgs[i] == "-localDir":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global localDir
             localDir = mainArgs[i]
         elif mainArgs[i] == "-remoteDir":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global remoteDir
             remoteDir = mainArgs[i]
         elif mainArgs[i] == "-generalFileName":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global generalFileName
             generalFileName = mainArgs[i]
         elif mainArgs[i] == "--isFileWithNum":
             i += 1
             # print i.__str__() + ". inner-arg: " + mainArgs[i]  # DEBUG!
-            global isFileWithNum
             if mainArgs[i] == "-True":
                 isFileWithNum = True
             elif mainArgs[i] == "-False":
@@ -95,7 +87,7 @@ fileToTransfer = ""
 preNumStatement = ""
 afterNumStatement = ""
 statementAfterHost = ""
-command = "scp"     # const
+baseCommand = "scp"     # const
 statementBeforeHost = ""
 
 def constructBasicCommandComponents():
@@ -143,9 +135,9 @@ def finalCmdConstructAndWriteToFileTransferScript():
             remoteFullPath = os.path.join(statementAfterHost, fileToTransfer)
 
         if fromLocalToRemote:
-            transferCmd = command + localFullPath + statementBeforeHost + hosts[i] + statementAfterHost
+            transferCmd = baseCommand + localFullPath + statementBeforeHost + hosts[i] + statementAfterHost
         else:
-            transferCmd = command + statementBeforeHost + hosts[i] + remoteFullPath + localDir
+            transferCmd = baseCommand + statementBeforeHost + hosts[i] + remoteFullPath + localDir
 
         print(transferCmd)
 
