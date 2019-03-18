@@ -94,7 +94,7 @@ def constructBasicCommandComponents():
 
     global preNumStatement, afterNumStatement, statementBeforeHost, statementAfterHost, localDir
 
-    # split "generalFileName" in pre-extension and after-extension which parts will be used later if we have files with numbers.
+    # Split "generalFileName" in pre-extension and after-extension which parts will be used later if we have files with numbers.
     generalFileNameInPieces = generalFileName.split(".")
 
     if len(generalFileNameInPieces) != 2:
@@ -103,7 +103,7 @@ def constructBasicCommandComponents():
     preNumStatement = generalFileNameInPieces[0]
     afterNumStatement = "." + generalFileNameInPieces[1]
 
-    #If we are transferring fromRemoteToLocal, then is possible that the localDir doesn't exist, so we need to create it.
+    # If we are transferring fromRemoteToLocal, then is possible that the localDir doesn't exist, so we need to create it.
     if fromRemoteToLocal:
         if not os.path.isdir(localDir):
             os.makedirs(localDir)
